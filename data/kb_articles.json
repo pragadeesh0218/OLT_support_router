@@ -1,0 +1,212 @@
+[
+ {
+  "id": "kb-refund",
+  "category": "refund_status",
+  "title": "Refund Status or Amount Owed",
+  "url": "https://kb.olt.com/KB/articles/refunds-or-amount-owed",
+  "text": "check refund status where is my refund how long refund takes direct deposit irs accepted amount owed balance due how to pay taxes owed"
+ },
+ {
+  "id": "kb-return-status",
+  "category": "refund_status",
+  "title": "Return Status",
+  "url": "https://www.olt.com/main/home/returnstatus.php",
+  "text": "return status accepted rejected pending irs state return acceptance tracking your e-filed return"
+ },
+ {
+  "id": "kb-payment-owed",
+  "category": "refund_status",
+  "title": "Payment Options for Taxes Owed",
+  "url": "https://www.olt.com/main/home/payment.php",
+  "text": "pay irs balance due payment options direct debit installment owe taxes amount owed pay what i owe"
+ },
+ {
+  "id": "kb-efile",
+  "category": "efile_pin",
+  "title": "E-Filing Guide and Self-Select PIN",
+  "url": "https://kb.olt.com/KB/articles/e-filing-or-self-select-pin",
+  "text": "e-file self select pin prior year agi sign return electronically rejected return identity protection pin ip pin rejection codes"
+ },
+ {
+  "id": "kb-what-is-efile",
+  "category": "efile_pin",
+  "title": "What is E-File?",
+  "url": "https://www.olt.com/main/home/whatisefile.php",
+  "text": "what is e-file electronic filing irs authorized provider transmit return to irs accepted mail paper"
+ },
+ {
+  "id": "kb-ai-import",
+  "category": "w2_1099_import",
+  "title": "AI Import for W-2 and 1099 Forms",
+  "url": "https://www.olt.com/main/home/ai_marketing.php",
+  "text": "ai import upload pdf photo w-2 1099 scan fills in income withholding employer details review before filing import prior year return"
+ },
+ {
+  "id": "kb-w2",
+  "category": "w2_1099_import",
+  "title": "Understanding Form W-2",
+  "url": "https://kb.olt.com/KB/articles/indiv_article_detail/form-w-2-2025-complete-guide",
+  "text": "form w-2 boxes wages box 1 box 2 withholding box 12 codes box 14 employer ein where to find missing w-2"
+ },
+ {
+  "id": "kb-1099int",
+  "category": "w2_1099_import",
+  "title": "Form 1099-INT: Reporting Interest Income",
+  "url": "https://kb.olt.com/KB/articles/indiv_article_detail/form-1099-int-reporting-interest-income-guide",
+  "text": "1099-int interest income bank statement report interest enter 1099 form"
+ },
+ {
+  "id": "kb-states",
+  "category": "state_return",
+  "title": "State Tax Filing",
+  "url": "https://www.olt.com/main/home/states.php",
+  "text": "state return state tax filing supported states cost per state part-year resident moved nonresident state refund state only"
+ },
+ {
+  "id": "kb-state-forms",
+  "category": "state_return",
+  "title": "State Forms",
+  "url": "https://www.olt.com/main/home/statepub.php",
+  "text": "state forms publications state tax forms download state income tax return"
+ },
+ {
+  "id": "kb-deductions",
+  "category": "deductions_credits",
+  "title": "Tax Deductions Guide",
+  "url": "https://kb.olt.com/KB/articles/tax-deductions",
+  "text": "deductions guide home office medical expenses charity donations mortgage interest property taxes student loan interest what can i deduct"
+ },
+ {
+  "id": "kb-std-vs-item",
+  "category": "deductions_credits",
+  "title": "Itemized vs Standard Deduction",
+  "url": "https://kb.olt.com/KB/articles/article_detail/standard-vs-itemized-deduction-difference",
+  "text": "standard deduction itemized deduction schedule a which is better difference"
+ },
+ {
+  "id": "kb-credits",
+  "category": "deductions_credits",
+  "title": "Tax Credits Overview",
+  "url": "https://kb.olt.com/KB/articles/credits",
+  "text": "tax credits earned income credit eitc child care credit education credit american opportunity lifetime learning eligibility"
+ },
+ {
+  "id": "kb-8812",
+  "category": "deductions_credits",
+  "title": "Schedule 8812: Child Tax Credit",
+  "url": "https://kb.olt.com/KB/articles/indiv_article_detail/schedule-8812-2025-child-tax-credit-actc-odc-guide",
+  "text": "child tax credit additional child tax credit dependents qualifying child credit for other dependents 2200 per child"
+ },
+ {
+  "id": "kb-sched1a",
+  "category": "deductions_credits",
+  "title": "Schedule 1-A: New 2025 Deductions",
+  "url": "https://kb.olt.com/KB/articles/indiv_article_detail/form-1040-schedule-1-a-guide-2025",
+  "text": "schedule 1-a tips deduction overtime deduction car loan interest senior deduction new for 2025 qualified tips"
+ },
+ {
+  "id": "kb-edu",
+  "category": "deductions_credits",
+  "title": "Education Credits and Deductions",
+  "url": "https://kb.olt.com/KB/articles/education-credits-or-deductions",
+  "text": "education credits students tuition 1098-t american opportunity lifetime learning student loan interest deduction"
+ },
+ {
+  "id": "kb-selfemp",
+  "category": "self_employed",
+  "title": "Self-Employed and Freelancers",
+  "url": "https://kb.olt.com/KB/articles/self-employed-and-freelancers",
+  "text": "self employed freelancer schedule c schedule se self employment tax 1099-nec business income expenses home office estimated taxes"
+ },
+ {
+  "id": "kb-gig",
+  "category": "self_employed",
+  "title": "Gig Workers",
+  "url": "https://kb.olt.com/KB/articles/gig-workers",
+  "text": "gig worker uber lyft doordash delivery driver 1099-k 1099-nec mileage deduction side hustle etsy paypal income"
+ },
+ {
+  "id": "kb-gig-page",
+  "category": "self_employed",
+  "title": "Gig Economy Tax",
+  "url": "https://www.olt.com/main/home/gig-economy-tax.php",
+  "text": "gig economy tax rideshare freelance platform income reporting deductions"
+ },
+ {
+  "id": "kb-business",
+  "category": "self_employed",
+  "title": "Business Taxes for Small Business Owners",
+  "url": "https://kb.olt.com/KB/articles/business-taxes",
+  "text": "small business owner schedule c business expenses sole proprietor deductions equipment supplies"
+ },
+ {
+  "id": "kb-cg",
+  "category": "investments_rental",
+  "title": "Capital Gains or Losses",
+  "url": "https://kb.olt.com/KB/articles/capital-gains-or-losses",
+  "text": "capital gains losses stock sales schedule d 1099-b cryptocurrency crypto 1099-da cost basis dividends investments"
+ },
+ {
+  "id": "kb-rental",
+  "category": "investments_rental",
+  "title": "Rental Property Income",
+  "url": "https://kb.olt.com/KB/articles",
+  "text": "rental property schedule e rental income depreciation landlord expenses repairs property"
+ },
+ {
+  "id": "kb-amend",
+  "category": "amended_return",
+  "title": "Amended Returns",
+  "url": "https://kb.olt.com/KB/articles/amended-returns",
+  "text": "amended return form 1040-x correct mistake after filing forgot income change filing status amend previous year"
+ },
+ {
+  "id": "kb-amend-page",
+  "category": "amended_return",
+  "title": "Amend a Return with OLT",
+  "url": "https://www.olt.com/main/home/amended.php",
+  "text": "amend return olt how to file an amended return status of amended return how long it takes"
+ },
+ {
+  "id": "kb-extension",
+  "category": "extension_deadline",
+  "title": "Extension Filing",
+  "url": "https://kb.olt.com/KB/articles/extension-filing",
+  "text": "extension form 4868 file extension more time to file extension to pay late filing penalty"
+ },
+ {
+  "id": "kb-deadlines",
+  "category": "extension_deadline",
+  "title": "Tax Deadlines",
+  "url": "https://www.olt.com/main/home/taxdeadlines.php",
+  "text": "tax deadline april 15 due date missed deadline file late penalty estimated tax dates"
+ },
+ {
+  "id": "kb-pricing",
+  "category": "account_payment",
+  "title": "Can I File for Free?",
+  "url": "https://www.olt.com/main/home/canusefree.php",
+  "text": "free federal edition cost price state return 9.95 who can use free no hidden fees pricing"
+ },
+ {
+  "id": "kb-premium",
+  "category": "account_payment",
+  "title": "Premium Edition",
+  "url": "https://www.olt.com/main/home/canusepremium.php",
+  "text": "premium edition upgrade phone chat support audit support priority processing price 7.95 cancel"
+ },
+ {
+  "id": "kb-support",
+  "category": "account_payment",
+  "title": "Customer Service",
+  "url": "https://www.olt.com/main/home/service.php",
+  "text": "customer service contact support email phone chat sign in password reset account login charged twice billing refund payment"
+ },
+ {
+  "id": "kb-continue",
+  "category": "account_payment",
+  "title": "Sign In and Continue Your Return",
+  "url": "https://www.olt.com/main/home/continuereturn.php",
+  "text": "sign in log in continue return forgot password username account access old return prior year return"
+ }
+]

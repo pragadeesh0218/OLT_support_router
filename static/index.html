@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Support router</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #E9EEF2;
+    --surface: #FFFFFF;
+    --ink: #14212B;
+    --muted: #55656F;
+    --line: #CBD5DC;
+    --accent: #0B5F73;
+    --accent-ink: #FFFFFF;
+    --ok: #2B7A4B;
+    --warn: #A85A12;
+    --warn-bg: #FBEEDD;
+    --ok-bg: #E0F1E7;
+    --radius: 6px;
+    --font: "Public Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0F171D; --surface: #17232B; --ink: #E6EDF1; --muted: #9AABB5; --line: #2C3D48;
+      --accent: #5FC1D6; --accent-ink: #08222A; --ok: #6FD09A; --warn: #F0A55B;
+      --warn-bg: #3A2A16; --ok-bg: #163527;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { height: 100%; }
+  body { margin: 0; min-height: 100%; background: var(--bg); color: var(--ink);
+         font-family: var(--font); font-size: 16px; line-height: 1.5; }
+  header { padding: 28px clamp(16px, 4vw, 48px) 8px; }
+  h1 { margin: 0; font-size: 1.5rem; font-weight: 700; letter-spacing: -0.01em; }
+  header p { margin: 4px 0 0; color: var(--muted); max-width: 62ch; }
+  main { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 20px;
+         padding: 16px clamp(16px, 4vw, 48px) 24px; align-items: start; }
+  @media (max-width: 860px) { main { grid-template-columns: 1fr; } }
+  section { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; }
+  h2 { margin: 0 0 12px; font-size: 1rem; font-weight: 600; }
+  label { display: block; font-weight: 500; margin-bottom: 6px; }
+  textarea, select { width: 100%; font: inherit; color: var(--ink); background: var(--bg);
+         border: 1px solid var(--line); border-radius: var(--radius); padding: 10px 12px; }
+  textarea { min-height: 128px; resize: vertical; }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+  button { font: inherit; font-weight: 600; cursor: pointer; border-radius: var(--radius);
+           padding: 10px 16px; border: 1px solid var(--accent); background: var(--accent); color: var(--accent-ink); }
+  button.quiet { background: transparent; color: var(--accent); }
+  button:disabled { opacity: .55; cursor: not-allowed; }
+  .row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-top: 12px; }
+  .examples { margin-top: 18px; }
+  .examples p { margin: 0 0 8px; color: var(--muted); font-size: .9rem; }
+  .chip { font-weight: 400; font-size: .9rem; text-align: left; padding: 6px 10px; color: var(--ink);
+          background: var(--bg); border: 1px solid var(--line); }
+  .chip:hover { border-color: var(--accent); }
+  #empty { color: var(--muted); margin: 0; }
+  .queue { font-size: clamp(1.6rem, 3.4vw, 2.3rem); font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; margin: 0; }
+  .decision { display: inline-block; margin-top: 10px; padding: 3px 10px; border-radius: 999px; font-size: .85rem; font-weight: 600; }
+  .decision.auto { background: var(--ok-bg); color: var(--ok); }
+  .decision.human { background: var(--warn-bg); color: var(--warn); }
+  .meter { position: relative; height: 10px; background: var(--bg); border: 1px solid var(--line); border-radius: 999px; margin: 18px 0 6px; }
+  .meter > i { position: absolute; inset: 0 auto 0 0; background: var(--accent); border-radius: 999px; transition: width .35s ease; }
+  .meter > b { position: absolute; top: -5px; bottom: -5px; width: 2px; background: var(--ink); }
+  .meter-note { display: flex; justify-content: space-between; color: var(--muted); font-size: .85rem; }
+  .alts { margin: 14px 0 0; padding: 0; list-style: none; color: var(--muted); font-size: .9rem; }
+  h3 { margin: 22px 0 8px; font-size: .95rem; font-weight: 600; }
+  .articles { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+  .articles li { padding: 10px 0; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; gap: 12px; }
+  .articles a { color: var(--accent); font-weight: 500; text-decoration: none; }
+  .articles a:hover { text-decoration: underline; }
+  .articles small { color: var(--muted); white-space: nowrap; }
+  .fix { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--line); }
+  .fix .row { margin-top: 8px; }
+  .fix select { width: auto; flex: 1 1 200px; }
+  #toast { min-height: 1.4em; margin-top: 8px; color: var(--ok); font-weight: 500; }
+  footer { margin: 0 clamp(16px, 4vw, 48px) 40px; display: flex; gap: 28px; flex-wrap: wrap; color: var(--muted); font-size: .9rem; }
+  footer strong { color: var(--ink); font-variant-numeric: tabular-nums; }
+  [hidden] { display: none !important; }
+  @media (prefers-reduced-motion: reduce) { .meter > i { transition: none; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>Support router</h1>
+  <p>Paste a customer question. The Naive Bayes model picks a queue and the knowledge-base articles that answer it. Low-confidence questions go to a person.</p>
+</header>
+
+<main>
+  <section aria-labelledby="ask-h">
+    <h2 id="ask-h">Customer question</h2>
+    <label for="q">What did the customer write?</label>
+    <textarea id="q" placeholder="My refund still hasn't arrived after 4 weeks"></textarea>
+    <div class="row">
+      <button id="go">Route question</button>
+      <button id="clear" class="quiet" type="button">Clear</button>
+    </div>
+    <div class="examples">
+      <p>Try one of these</p>
+      <div class="row" id="chips"></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="res-h" aria-live="polite">
+    <h2 id="res-h">Routing result</h2>
+    <p id="empty">Route a question to see its queue, confidence and suggested articles.</p>
+    <div id="result" hidden>
+      <p class="queue" id="queue"></p>
+      <span class="decision" id="decision"></span>
+      <div class="meter" role="img" aria-label="Model confidence"><i id="bar"></i><b id="mark"></b></div>
+      <div class="meter-note"><span id="conf"></span><span id="thr"></span></div>
+      <ul class="alts" id="alts"></ul>
+      <div id="arts-wrap">
+        <h3>Suggested articles</h3>
+        <ul class="articles" id="arts"></ul>
+      </div>
+      <div class="fix">
+        <label for="fixsel">Wrong queue? Teach the model the right one</label>
+        <div class="row">
+          <select id="fixsel"></select>
+          <button id="fixbtn" class="quiet" type="button">Save correction</button>
+        </div>
+        <div id="toast" role="status"></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer id="stats"></footer>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const EXAMPLES = [
+  "my refund has not come after 5 weeks",
+  "w2 photo upload keeps failing",
+  "irs rejected my return code IND-031",
+  "i sold bitcoin how do i report it",
+  "can i still file after april 15",
+  "i want to talk to a real person"
+];
+let cats = {};
+let last = "";
+
+async function api(path, body) {
+  const r = await fetch(path, body ? { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) } : undefined);
+  if (!r.ok) throw new Error((await r.text()) || r.statusText);
+  return r.json();
+}
+const pct = (x) => Math.round(x * 100) + "%";
+
+async function init() {
+  cats = await api("/categories");
+  $("fixsel").innerHTML = "";
+  for (const [k, v] of Object.entries(cats)) { const o = document.createElement("option"); o.value = k; o.textContent = v; $("fixsel").appendChild(o); }
+  for (const t of EXAMPLES) {
+    const b = document.createElement("button"); b.type = "button"; b.className = "chip"; b.textContent = t;
+    b.onclick = () => { $("q").value = t; route(); };
+    $("chips").appendChild(b);
+  }
+  refreshStats();
+}
+
+async function route() {
+  const text = $("q").value.trim();
+  if (!text) { $("q").focus(); return; }
+  $("go").disabled = true;
+  try {
+    const r = await api("/classify", { question: text });
+    last = text; render(r); refreshStats();
+  } catch (e) {
+    $("empty").hidden = false; $("result").hidden = true;
+    $("empty").textContent = "The router could not answer: " + e.message + ". Check that the API is running and try again.";
+  } finally { $("go").disabled = false; }
+}
+
+function render(r) {
+  $("empty").hidden = true; $("result").hidden = false; $("toast").textContent = "";
+  $("queue").textContent = r.queue;
+  const auto = r.decision === "auto_route";
+  const d = $("decision");
+  d.textContent = auto ? "Routed automatically" : "Needs a person to review";
+  d.className = "decision " + (auto ? "auto" : "human");
+  $("bar").style.width = pct(Math.min(r.confidence / 0.8, 1));
+  $("mark").style.left = pct(Math.min(r.threshold / 0.8, 1));
+  $("conf").textContent = "Model confidence " + pct(r.confidence) + " for " + cats[r.category];
+  $("thr").textContent = "Auto-route line at " + pct(r.threshold);
+  $("alts").innerHTML = "";
+  for (const a of r.alternatives) { const li = document.createElement("li"); li.textContent = "Also possible: " + cats[a.category] + " (" + pct(a.confidence) + ")"; $("alts").appendChild(li); }
+  $("arts").innerHTML = "";
+  $("arts-wrap").hidden = r.top_articles.length === 0;
+  for (const a of r.top_articles) {
+    const li = document.createElement("li"), link = document.createElement("a"), s = document.createElement("small");
+    link.href = a.url; link.target = "_blank"; link.rel = "noopener"; link.textContent = a.title;
+    s.textContent = "match " + a.score.toFixed(2);
+    li.append(link, s); $("arts").appendChild(li);
+  }
+  $("fixsel").value = r.category;
+}
+
+async function saveFix() {
+  try {
+    await api("/feedback", { question: last, correct_category: $("fixsel").value });
+    $("toast").textContent = "Saved. The model learned this correction.";
+    refreshStats();
+  } catch (e) { $("toast").style.color = "var(--warn)"; $("toast").textContent = "Could not save the correction: " + e.message; }
+}
+
+async function refreshStats() {
+  const m = await api("/metrics");
+  const f = (l, v) => `<span>${l} <strong>${v}</strong></span>`;
+  $("stats").innerHTML = f("Questions routed", m.requests) + f("Sent to a person", m.sent_to_human) +
+    f("Corrections learned", m.feedback_received) + f("Median latency", m.latency_ms_p50 == null ? "none yet" : m.latency_ms_p50 + " ms");
+}
+
+$("go").onclick = route;
+$("clear").onclick = () => { $("q").value = ""; $("q").focus(); };
+$("q").addEventListener("keydown", (e) => { if ((e.ctrlKey || e.metaKey) && e.key === "Enter") route(); });
+$("fixbtn").onclick = saveFix;
+init();
+</script>
+</body>
+</html>

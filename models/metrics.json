@@ -1,0 +1,65 @@
+{
+  "served_model": "ComplementNB",
+  "alpha": 0.3,
+  "test_size": 44,
+  "train_size": 1076,
+  "models": {
+    "MultinomialNB": {
+      "accuracy": 0.727,
+      "macro_f1": 0.729,
+      "ms_per_query": 0.158
+    },
+    "ComplementNB": {
+      "accuracy": 0.886,
+      "macro_f1": 0.887,
+      "ms_per_query": 0.131
+    },
+    "LogisticRegression": {
+      "accuracy": 0.864,
+      "macro_f1": 0.866,
+      "ms_per_query": 0.025
+    }
+  },
+  "threshold_tradeoff": [
+    {
+      "threshold": 0.2,
+      "auto_routed": 0.612,
+      "accuracy_when_auto": 0.985
+    },
+    {
+      "threshold": 0.25,
+      "auto_routed": 0.506,
+      "accuracy_when_auto": 0.982
+    },
+    {
+      "threshold": 0.3,
+      "auto_routed": 0.4,
+      "accuracy_when_auto": 0.977
+    },
+    {
+      "threshold": 0.35,
+      "auto_routed": 0.33,
+      "accuracy_when_auto": 0.972
+    },
+    {
+      "threshold": 0.4,
+      "auto_routed": 0.239,
+      "accuracy_when_auto": 0.962
+    },
+    {
+      "threshold": 0.5,
+      "auto_routed": 0.167,
+      "accuracy_when_auto": 0.945
+    },
+    {
+      "threshold": 0.6,
+      "auto_routed": 0.13,
+      "accuracy_when_auto": 1.0
+    },
+    {
+      "threshold": 0.7,
+      "auto_routed": 0.042,
+      "accuracy_when_auto": 1.0
+    }
+  ]
+}

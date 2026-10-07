@@ -1,0 +1,111 @@
+text,label
+its been a month and still no refund what is going on,refund_status
+irs says approved but money not in my bank,refund_status
+how can i see where my federal refund is,refund_status
+my refund came lower than the estimate olt showed me,refund_status
+when do refunds usually hit the account after acceptance,refund_status
+i owe money this year how do i pay it,refund_status
+state refund still pending after 6 weeks,refund_status
+need to know if the irs got my return and when i get paid,refund_status
+refund check or direct deposit which is faster,refund_status
+balance due on my return what are my options,refund_status
+irs bounced my return with a reject code,efile_pin
+what pin do i type to sign my return,efile_pin
+dont remember last years agi cant submit,efile_pin
+return rejected because someone already claimed my kid,efile_pin
+how do i add my ip pin from the irs letter,efile_pin
+do i have to print and mail anything or is efile enough,efile_pin
+e-file failed with error ind-031,efile_pin
+can my spouse sign electronically too,efile_pin
+was my return transmitted successfully,efile_pin
+reject message says ssn does not match name,efile_pin
+tried uploading my w2 but nothing happens,w2_1099_import
+the scan picked up the wrong box 1 number,w2_1099_import
+can i just take a photo of my 1099 with my phone,w2_1099_import
+ai import missed my employers ein,w2_1099_import
+where on the w2 is the state wages box,w2_1099_import
+my employer has not sent a w-2 yet what can i do,w2_1099_import
+how do i bring in last years return,w2_1099_import
+pdf of my 1099-int will not read,w2_1099_import
+uploaded two w-2s but only one showed up,w2_1099_import
+what does code dd in box 12 mean,w2_1099_import
+do i pay extra for my state taxes,state_return
+i lived in two states last year how do i file,state_return
+can i only do the state and skip federal,state_return
+which states can i file in with olt,state_return
+california return got rejected,state_return
+i work in new jersey but live in new york need both returns,state_return
+how to file state when i moved mid year,state_return
+state tax form for ohio residents,state_return
+is there a cheaper way to add the state return,state_return
+state e-file status not showing,state_return
+can i write off my work from home setup,deductions_credits
+what is the standard deduction for single filer,deductions_credits
+do i qualify for the earned income credit,deductions_credits
+how do i claim the tips deduction,deductions_credits
+overtime pay deduction where do i enter it,deductions_credits
+should i itemize or take standard,deductions_credits
+claiming my two kids child tax credit,deductions_credits
+are my student loan payments deductible,deductions_credits
+donations to church can i deduct them,deductions_credits
+tuition 1098-t credit how to claim,deductions_credits
+i drive for uber how do i report that,self_employed
+got a 1099-nec from a client what form do i use,self_employed
+paypal sent me a 1099-k do i need to report it,self_employed
+how is self employment tax figured,self_employed
+can i deduct my laptop for my freelance work,self_employed
+side business on etsy do i need schedule c,self_employed
+doordash mileage how to deduct,self_employed
+do i need to pay quarterly estimated taxes as a contractor,self_employed
+i own a small llc how do i file,self_employed
+business expenses i can write off as a freelancer,self_employed
+i sold bitcoin this year how is it taxed,investments_rental
+where do i enter my 1099-b stock sales,investments_rental
+rental house depreciation how to calculate,investments_rental
+what is cost basis and where do i find it,investments_rental
+got a 1099-da from coinbase,investments_rental
+capital loss carryover from last year,investments_rental
+i rent out a room in my home how do i report income,investments_rental
+dividends from my brokerage account where to enter,investments_rental
+schedule e for two rental properties,investments_rental
+sold my shares at a loss can i deduct,investments_rental
+i forgot a form after i already filed what now,amended_return
+how do i fix an error on a return the irs accepted,amended_return
+need to file a 1040-x,amended_return
+can i amend a return from two years ago,amended_return
+changed my mind about filing status after submitting,amended_return
+how long until an amended return is processed,amended_return
+i entered wrong income last year and filed already,amended_return
+where do i check status of my amended return,amended_return
+added a dependent late need to correct my return,amended_return
+do i have to amend if the irs already sent a refund,amended_return
+when is the last day to file taxes,extension_deadline
+need more time how do i get an extension,extension_deadline
+i missed april 15 will there be a penalty,extension_deadline
+does an extension give me more time to pay too,extension_deadline
+can i still e-file in october,extension_deadline
+form 4868 how do i submit it,extension_deadline
+what happens if i file late,extension_deadline
+is the deadline different this year,extension_deadline
+last date to file without penalty,extension_deadline
+extend my filing until october,extension_deadline
+i cant log in forgot my password,account_payment
+was charged two times for my state return,account_payment
+how much will i pay in total to file,account_payment
+upgrade me to premium please,account_payment
+i want my money back for premium,account_payment
+change the email on my account,account_payment
+do you have a promo code,account_payment
+where can i find my previous year return,account_payment
+cancel my subscription,account_payment
+is the federal return really free or is there a catch,account_payment
+i want to speak with a real person,other_human
+someone used my ssn to file a return,other_human
+got a letter from the irs about an audit,other_human
+received a cp2000 notice what do i do,other_human
+can you file taxes for my s corporation,other_human
+i need a lawyer for a tax dispute,other_human
+hello,other_human
+this is the worst service i want to file a complaint,other_human
+what is the weather today,other_human
+asdfgh qwerty,other_human
