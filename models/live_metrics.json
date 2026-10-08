@@ -1,0 +1,107 @@
+{
+  "n_labeled": 162,
+  "class_counts": {
+    "other_human": 57,
+    "investments_rental": 30,
+    "deductions_credits": 18,
+    "self_employed": 16,
+    "state_return": 8,
+    "amended_return": 7,
+    "w2_1099_import": 7,
+    "extension_deadline": 6,
+    "account_payment": 5,
+    "efile_pin": 4,
+    "refund_status": 4
+  },
+  "dropped_classes": [],
+  "thin_classes": [
+    "efile_pin",
+    "refund_status"
+  ],
+  "selected": [
+    "ComplementNB",
+    0.03
+  ],
+  "cv_macro_f1": {
+    "MultinomialNB a=0.03": 0.068,
+    "MultinomialNB a=0.1": 0.062,
+    "MultinomialNB a=0.3": 0.051,
+    "MultinomialNB a=1.0": 0.047,
+    "ComplementNB a=0.03": 0.094,
+    "ComplementNB a=0.1": 0.085,
+    "ComplementNB a=0.3": 0.089,
+    "ComplementNB a=1.0": 0.083
+  },
+  "logreg_cv_macro_f1": 0.071,
+  "temporal_split": {
+    "train_n": 113,
+    "test_n": 49,
+    "accuracy": 0.32653061224489793,
+    "macro_f1": 0.08436363636363636
+  },
+  "threshold": 0.325,
+  "target_auto_accuracy": 0.95,
+  "threshold_table": [
+    {
+      "threshold": 0.05,
+      "auto_routed": 0.38271604938271603,
+      "accuracy_when_auto": 0.1935483870967742
+    },
+    {
+      "threshold": 0.075,
+      "auto_routed": 0.38271604938271603,
+      "accuracy_when_auto": 0.1935483870967742
+    },
+    {
+      "threshold": 0.1,
+      "auto_routed": 0.3765432098765432,
+      "accuracy_when_auto": 0.1912568306010929
+    },
+    {
+      "threshold": 0.125,
+      "auto_routed": 0.3436213991769547,
+      "accuracy_when_auto": 0.20359281437125748
+    },
+    {
+      "threshold": 0.15,
+      "auto_routed": 0.25102880658436216,
+      "accuracy_when_auto": 0.23770491803278687
+    },
+    {
+      "threshold": 0.175,
+      "auto_routed": 0.17078189300411523,
+      "accuracy_when_auto": 0.3253012048192771
+    },
+    {
+      "threshold": 0.2,
+      "auto_routed": 0.12962962962962962,
+      "accuracy_when_auto": 0.38095238095238093
+    },
+    {
+      "threshold": 0.225,
+      "auto_routed": 0.09670781893004116,
+      "accuracy_when_auto": 0.3617021276595745
+    },
+    {
+      "threshold": 0.25,
+      "auto_routed": 0.0720164609053498,
+      "accuracy_when_auto": 0.4
+    },
+    {
+      "threshold": 0.275,
+      "auto_routed": 0.04938271604938271,
+      "accuracy_when_auto": 0.5416666666666666
+    },
+    {
+      "threshold": 0.3,
+      "auto_routed": 0.030864197530864196,
+      "accuracy_when_auto": 0.7333333333333333
+    },
+    {
+      "threshold": 0.325,
+      "auto_routed": 0.02880658436213992,
+      "accuracy_when_auto": 0.7857142857142857
+    }
+  ],
+  "used_weak_labels": false
+}

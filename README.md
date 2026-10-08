@@ -5,6 +5,8 @@ Low-confidence questions go to a human instead of being auto-routed.
 
 Idea source: OLT.com / Pistus.com (support questions on refunds, e-file, W-2 import, state returns, deductions).
 
+**Phase 2 (live data instead of synthetic) is in `README_PHASE2.md`.**
+
 ## How it works
 ```
 question -> clean + mask PII -> HashingVectorizer (1-2 grams) -> Naive Bayes -> class probabilities
@@ -16,6 +18,8 @@ agent correction -> POST /feedback -> partial_fit (online learning) + saved to d
 investments_rental, amended_return, extension_deadline, account_payment, other_human.
 
 ## Run it
+The full write-up with charts is in `report.ipynb`. It is self-contained (no imports from `src/`) and can be run from anywhere.
+
 ```bash
 pip install -r requirements.txt
 python -m src.generate_data     # synthetic training data + gold test questions

@@ -7,8 +7,12 @@ from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
-from .config import CATEGORIES, CONFIDENCE_THRESHOLD, STATIC_DIR
-from .model import Router
+import hashlib
+import json
+from datetime import datetime, timezone
+
+from .config import CATEGORIES, LOG_QUESTIONS, RAW_DIR, STATIC_DIR
+from .model import Router, mask_pii
 
 state = {"router": None, "stats": {"requests": 0, "auto": 0, "human": 0, "feedback": 0, "latency_ms": []}}
 
@@ -20,6 +24,18 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(title="Tax Support Question Router", version="0.1.0", lifespan=lifespan)
+
+
+def log_question(text: str, result: dict):
+    """Phase 2 live-data loop: keep PII-masked production questions for later labeling.
+    Only enable (LOG_QUESTIONS=1) if your privacy policy / consent allows it."""
+    masked = mask_pii(text)
+    RAW_DIR.mkdir(parents=True, exist_ok=True)
+    row = {"id": "prod-" + hashlib.sha1(masked.lower().encode()).hexdigest()[:16], "source": "production",
+           "title": masked, "text": masked, "created": datetime.now(timezone.utc).isoformat(),
+           "url": None, "license": "first-party", "model_guess": result["category"]}
+    with open(RAW_DIR / "production.jsonl", "a") as f:
+        f.write(json.dumps(row) + "\n")
 
 
 class Question(BaseModel):
@@ -41,7 +57,9 @@ def classify(body: Question):
     st["auto" if result["decision"] == "auto_route" else "human"] += 1
     st["latency_ms"] = (st["latency_ms"] + [ms])[-500:]
     result["latency_ms"] = round(ms, 2)
-    result["threshold"] = CONFIDENCE_THRESHOLD
+    result["threshold"] = state["router"].threshold
+    if LOG_QUESTIONS:
+        log_question(body.question, result)
     return result
 
 
@@ -66,7 +84,7 @@ def metrics():
     p50 = lat[len(lat) // 2] if lat else None
     p95 = lat[int(len(lat) * 0.95) - 1] if len(lat) >= 20 else (lat[-1] if lat else None)
     return {"requests": st["requests"], "auto_routed": st["auto"], "sent_to_human": st["human"],
-            "feedback_received": st["feedback"], "threshold": CONFIDENCE_THRESHOLD,
+            "feedback_received": st["feedback"], "threshold": state["router"].threshold,
             "latency_ms_p50": None if p50 is None else round(p50, 2),
             "latency_ms_p95": None if p95 is None else round(p95, 2)}
 

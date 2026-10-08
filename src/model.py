@@ -20,11 +20,17 @@ _PII = [
 ]
 
 
-def clean(text: str) -> str:
-    """Lowercase, mask PII so it never reaches the model or the logs."""
+def mask_pii(text: str) -> str:
+    """Replace SSN / email / phone / 9-digit numbers with placeholder tokens (keeps casing)."""
     text = text.strip()
     for pattern, repl in _PII:
         text = pattern.sub(repl, text)
+    return text
+
+
+def clean(text: str) -> str:
+    """Lowercase, mask PII so it never reaches the model or the logs."""
+    text = mask_pii(text)
     text = text.lower()
     text = re.sub(r"[^a-z0-9\-\s]", " ", text)
     return re.sub(r"\s+", " ", text).strip()
@@ -42,9 +48,10 @@ def make_classifier(alpha: float = 0.05) -> MultinomialNB:
 
 # --- router -----------------------------------------------------------------
 class Router:
-    def __init__(self, clf=None, kb=None):
+    def __init__(self, clf=None, kb=None, threshold=None):
         self.vec = make_vectorizer()
         self.clf = clf
+        self.threshold = CONFIDENCE_THRESHOLD if threshold is None else threshold
         self.kb = kb or json.loads(KB_PATH.read_text())
         self._lock = threading.Lock()
         self._kb_vec = TfidfVectorizer(ngram_range=(1, 2), sublinear_tf=True, stop_words="english")
@@ -53,7 +60,11 @@ class Router:
 
     @classmethod
     def load(cls):
-        router = cls(clf=joblib.load(MODEL_PATH))
+        obj = joblib.load(MODEL_PATH)
+        if isinstance(obj, dict):                     # Phase 2 bundle: {"clf": ..., "threshold": ...}
+            router = cls(clf=obj["clf"], threshold=obj.get("threshold"))
+        else:                                         # Phase 1: bare classifier
+            router = cls(clf=obj)
         router.replay_feedback()
         return router
 
@@ -81,7 +92,7 @@ class Router:
         classes = list(self.clf.classes_)
         top = classes[order[0]]
         conf = float(proba[order[0]])
-        auto = conf >= CONFIDENCE_THRESHOLD and top != "other_human"
+        auto = conf >= self.threshold and top != "other_human"
         category = top if auto else "other_human"
         return {
             "category": top,
