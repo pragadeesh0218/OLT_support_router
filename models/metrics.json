@@ -7,17 +7,17 @@
     "MultinomialNB": {
       "accuracy": 0.727,
       "macro_f1": 0.729,
-      "ms_per_query": 0.158
+      "ms_per_query": 0.021
     },
     "ComplementNB": {
       "accuracy": 0.886,
       "macro_f1": 0.887,
-      "ms_per_query": 0.131
+      "ms_per_query": 0.022
     },
     "LogisticRegression": {
       "accuracy": 0.864,
       "macro_f1": 0.866,
-      "ms_per_query": 0.025
+      "ms_per_query": 0.033
     }
   },
   "threshold_tradeoff": [

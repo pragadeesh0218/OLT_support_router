@@ -2,3 +2,11 @@ __pycache__/
 *.pyc
 data/feedback.jsonl
 .pytest_cache/
+data/p3/articles.jsonl
+data/p3/faq_pairs.jsonl
+data/p3/queries.jsonl
+data/p3/feedback.jsonl
+data/live/raw/
+data/live/cache/
+data/live/*.csv
+models/p3_eval.json

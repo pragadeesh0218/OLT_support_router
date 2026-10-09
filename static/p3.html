@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Find your answer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#E9EEF2; --surface:#fff; --ink:#14212B; --muted:#55656F; --line:#CBD5DC; --accent:#0B5F73;
+          --accent-ink:#fff; --warn:#A85A12; --warn-bg:#FBEEDD; --ok:#2B7A4B; --ok-bg:#E0F1E7; --r:6px;
+          --font:"Public Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+    --bg:#0F171D; --surface:#17232B; --ink:#E6EDF1; --muted:#9AABB5; --line:#2C3D48; --accent:#5FC1D6;
+    --accent-ink:#08222A; --warn:#F0A55B; --warn-bg:#3A2A16; --ok:#6FD09A; --ok-bg:#163527; } }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.5 var(--font); }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 40px 20px 60px; }
+  h1 { margin:0 0 6px; font-size:1.7rem; letter-spacing:-.01em; }
+  .lead { margin:0 0 22px; color:var(--muted); }
+  textarea { width:100%; min-height:92px; resize:vertical; font:inherit; color:var(--ink); background:var(--surface);
+             border:1px solid var(--line); border-radius:var(--r); padding:12px 14px; }
+  :focus-visible { outline:3px solid var(--accent); outline-offset:2px; }
+  button, .btn { font:inherit; font-weight:600; cursor:pointer; border-radius:var(--r); padding:10px 18px;
+                 border:1px solid var(--accent); background:var(--accent); color:var(--accent-ink);
+                 text-decoration:none; display:inline-block; }
+  button.quiet { background:transparent; color:var(--accent); }
+  button:disabled { opacity:.55; cursor:not-allowed; }
+  .row { display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top:12px; }
+  .chip { font-weight:400; font-size:.9rem; padding:5px 10px; color:var(--ink); background:var(--surface); border:1px solid var(--line); }
+  .chip:hover { border-color:var(--accent); }
+  .hint { margin-top:18px; color:var(--muted); font-size:.9rem; }
+  #out { margin-top:26px; }
+  .card { background:var(--surface); border:1px solid var(--line); border-radius:var(--r); padding:22px; }
+  .tag { display:inline-block; padding:3px 10px; border-radius:999px; font-size:.82rem; font-weight:600; }
+  .tag.ok { background:var(--ok-bg); color:var(--ok); } .tag.human { background:var(--warn-bg); color:var(--warn); }
+  .title { margin:12px 0 4px; font-size:1.35rem; font-weight:700; line-height:1.25; letter-spacing:-.01em; }
+  .url { color:var(--muted); font-size:.88rem; word-break:break-all; margin:0 0 16px; }
+  .why { color:var(--muted); margin:10px 0 16px; }
+  details { margin-top:18px; color:var(--muted); font-size:.92rem; } summary { cursor:pointer; }
+  details ul { margin:8px 0 0; padding-left:18px; } details a { color:var(--accent); }
+  .vote { margin-top:18px; padding-top:14px; border-top:1px solid var(--line); color:var(--muted); font-size:.92rem; }
+  .vote button { padding:5px 12px; font-size:.9rem; margin-left:6px; }
+  [hidden] { display:none !important; }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <h1>Find your answer</h1>
+  <p class="lead">Ask your tax question. We'll point you to the help article that answers it, or connect you with a support agent.</p>
+  <label for="q" class="lead" style="display:block;margin-bottom:6px">Your question</label>
+  <textarea id="q" placeholder="Why hasn't my refund arrived?"></textarea>
+  <div class="row"><button id="go">Find answer</button><button id="clr" class="quiet" type="button">Clear</button></div>
+  <p class="hint">Don't include your Social Security number or other personal details.</p>
+  <div class="row" id="chips"></div>
+  <div id="out" aria-live="polite"></div>
+</main>
+<script>
+const $ = (id) => document.getElementById(id);
+const EX = ["how do I deduct my home office", "irs rejected my e-file", "can I file an extension", "I got an audit notice"];
+let last = null;
+for (const t of EX) { const b = document.createElement("button"); b.type="button"; b.className="chip"; b.textContent=t;
+  b.onclick=()=>{ $("q").value=t; go(); }; $("chips").appendChild(b); }
+
+async function post(path, body) {
+  const r = await fetch(path, { method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(body) });
+  if (!r.ok) throw new Error(await r.text()); return r.json();
+}
+const el = (tag, props={}, kids=[]) => { const e=document.createElement(tag); Object.assign(e, props); kids.forEach(k=>e.append(k)); return e; };
+
+async function go() {
+  const q = $("q").value.trim(); if (!q) { $("q").focus(); return; }
+  $("go").disabled = true;
+  try { last = { q, res: await post("/search", { query: q }) }; render(last.res); }
+  catch (e) { $("out").replaceChildren(el("div", { className:"card", textContent:"Something went wrong: " + e.message + ". Please try again." })); }
+  finally { $("go").disabled = false; }
+}
+
+function render(r) {
+  const card = el("div", { className:"card" });
+  if (r.decision === "article") {
+    card.append(el("span", { className:"tag ok", textContent:"Best match" }),
+      el("h2", { className:"title", textContent:r.article.title }),
+      el("p", { className:"url", textContent:r.article.url }),
+      el("a", { className:"btn", href:r.article.url, target:"_blank", rel:"noopener", textContent:"Open this article" }));
+  } else {
+    const why = r.reason === "needs_agent_topic" ? "This kind of question is best handled by a person."
+              : r.reason === "unclear_question" ? "We couldn't tell what you're asking. Try adding a few more words, or talk to an agent."
+              : "We couldn't find an article we're confident about.";
+    card.append(el("span", { className:"tag human", textContent:"Talk to a person" }),
+      el("h2", { className:"title", textContent:"Let a support agent help" }),
+      el("p", { className:"why", textContent:why }),
+      el("a", { className:"btn", href:r.human.url, target:"_blank", rel:"noopener", textContent:r.human.label }));
+  }
+  if (r.alternatives && r.alternatives.length) {
+    const ul = el("ul"); r.alternatives.forEach(a => ul.append(el("li", {}, [el("a", { href:a.url, target:"_blank", rel:"noopener", textContent:a.title })])));
+    card.append(el("details", {}, [el("summary", { textContent:"Other articles that might help" }), ul]));
+  }
+  const vote = el("div", { className:"vote" }, ["Was this helpful?"]);
+  for (const [label, val] of [["Yes", true], ["No", false]]) {
+    const b = el("button", { className:"quiet", type:"button", textContent:label });
+    b.onclick = async () => { await post("/feedback", { query:last.q, article_id:(r.article||{}).id || null, helpful:val });
+                              vote.replaceChildren("Thanks for the feedback."); };
+    vote.append(b);
+  }
+  card.append(vote); $("out").replaceChildren(card);
+}
+$("go").onclick = go; $("clr").onclick = () => { $("q").value=""; $("out").replaceChildren(); $("q").focus(); };
+$("q").addEventListener("keydown", e => { if ((e.ctrlKey||e.metaKey) && e.key==="Enter") go(); });
+</script>
+</body>
+</html>
